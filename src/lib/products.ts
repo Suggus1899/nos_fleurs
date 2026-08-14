@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export const OCCASIONS = ["Cumpleaños", "Aniversario", "Condolencias"] as const;
-export type Occasion = (typeof OCCASIONS)[number];
+// Categories are admin-managed data, not a fixed set — see lib/occasions.ts.
+export type Occasion = string;
 
 export type Product = {
   slug: string;

@@ -28,7 +28,10 @@ export default function AdminDashboardPage() {
           </span>
           <h1 className="mt-2 font-heading text-3xl italic">Catálogo</h1>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
+          <Button asChild variant="outline" className="rounded-sm">
+            <Link href="/admin/categorias">Categorías</Link>
+          </Button>
           <Button asChild variant="outline" className="rounded-sm">
             <Link href="/admin/productos/nuevo">Nuevo producto</Link>
           </Button>

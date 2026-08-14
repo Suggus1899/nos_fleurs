@@ -3,16 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { OCCASIONS, type Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
 
 export function ProductForm({
   action,
   product,
+  occasions,
   submitLabel,
   error,
 }: {
   action: (formData: FormData) => void;
   product?: Product;
+  occasions: string[];
   submitLabel: string;
   error?: string;
 }) {
@@ -48,11 +50,11 @@ export function ProductForm({
           <select
             id="occasion"
             name="occasion"
-            defaultValue={product?.occasion ?? OCCASIONS[0]}
+            defaultValue={product?.occasion ?? occasions[0]}
             required
             className="h-9 w-full rounded-sm border border-border bg-card px-3 text-sm"
           >
-            {OCCASIONS.map((occasion) => (
+            {occasions.map((occasion) => (
               <option key={occasion} value={occasion}>
                 {occasion}
               </option>

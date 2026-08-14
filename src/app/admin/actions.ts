@@ -10,6 +10,7 @@ import {
   type Occasion,
   type Product,
 } from "@/lib/products";
+import { getOccasions, saveOccasions } from "@/lib/occasions";
 import { isValidImageFile, saveUploadedImage } from "@/lib/uploads";
 
 function revalidateCatalog(slug?: string) {
@@ -102,4 +103,38 @@ export async function deleteProduct(slug: string) {
   saveProducts(products);
   revalidateCatalog(slug);
   redirect("/admin");
+}
+
+function revalidateOccasions() {
+  revalidatePath("/catalogo");
+  revalidatePath("/admin/categorias");
+  revalidatePath("/admin/productos/nuevo");
+}
+
+export async function createOccasion(formData: FormData) {
+  await requireAdmin();
+
+  const name = String(formData.get("name") ?? "").trim();
+  if (!name) redirect("/admin/categorias");
+
+  const occasions = getOccasions();
+  if (!occasions.includes(name)) {
+    occasions.push(name);
+    saveOccasions(occasions);
+  }
+  revalidateOccasions();
+  redirect("/admin/categorias");
+}
+
+export async function deleteOccasion(name: string) {
+  await requireAdmin();
+
+  const inUse = getProducts().some((p) => p.occasion === name);
+  if (inUse) {
+    redirect(`/admin/categorias?error=in-use`);
+  }
+
+  saveOccasions(getOccasions().filter((occasion) => occasion !== name));
+  revalidateOccasions();
+  redirect("/admin/categorias");
 }

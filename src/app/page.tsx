@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <main className="flex-1 px-6 sm:px-12">
-      <section className="grid items-center gap-10 py-16 sm:grid-cols-2 sm:py-24">
+      <section className="grid items-center gap-10 py-10 sm:grid-cols-2 sm:py-16">
         <div>
           <span className="font-mono text-xs uppercase tracking-wider text-moss">
             Catálogo de temporada
