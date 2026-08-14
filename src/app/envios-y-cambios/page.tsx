@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 const SECTIONS = [
   {
     title: "Zonas y tiempos de entrega",
-    body: "Entregamos en CABA y alrededores. Los pedidos confirmados antes de las 14 h salen el mismo día; los que llegan después, al día siguiente.",
+    body: "Entregamos en Maracay y alrededores, dentro del estado Aragua. Los pedidos confirmados antes de las 14 h salen el mismo día; los que llegan después, al día siguiente.",
   },
   {
     title: "Costo de envío",

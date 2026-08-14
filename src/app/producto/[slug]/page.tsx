@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SealStamp } from "@/components/seal-stamp";
@@ -36,7 +37,15 @@ export default async function ProductoPage({
       </Link>
 
       <div className="mt-8 grid gap-10 sm:grid-cols-2">
-        <div className="relative aspect-[4/5] w-full border border-border bg-secondary">
+        <div className="relative aspect-[4/5] w-full overflow-hidden border border-border bg-secondary">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+            priority
+          />
           <SealStamp className="absolute -top-4 -right-4 h-16 w-16" />
         </div>
 

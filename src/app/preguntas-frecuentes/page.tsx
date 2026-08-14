@@ -16,7 +16,7 @@ const FAQS = [
   },
   {
     q: "¿A qué zonas entregan?",
-    a: "CABA y alrededores. Consultanos tu dirección por WhatsApp para confirmar cobertura.",
+    a: "Maracay y alrededores, dentro del estado Aragua. Consultanos tu dirección por WhatsApp para confirmar cobertura.",
   },
   {
     q: "¿Puedo personalizar un ramo?",

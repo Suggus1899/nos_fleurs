@@ -93,8 +93,8 @@ export function SiteFooter() {
       </div>
 
       <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 font-mono text-[11px] uppercase tracking-wider text-moss sm:flex-row sm:items-center sm:justify-between">
-        <span>Nos Fleurs — Buenos Aires</span>
-        <span>Envíos en CABA y alrededores</span>
+        <span>Nos Fleurs — Maracay, Aragua</span>
+        <span>Envíos en Maracay y alrededores</span>
       </div>
     </footer>
   );

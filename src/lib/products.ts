@@ -8,6 +8,7 @@ export type Product = {
   price: string;
   description: string;
   occasion: Occasion;
+  image: string;
 };
 
 export const PRODUCTS: Product[] = [
@@ -15,46 +16,56 @@ export const PRODUCTS: Product[] = [
     slug: "ramo-amanecer",
     name: "Ramo Amanecer",
     latin: "Ranunculus asiaticus",
-    price: "$8.500",
+    price: "$8.50",
     description:
       "Ranúnculos en degradé de coral a marfil, cortados al amanecer y envueltos en papel kraft. Un ramo pequeño para empezar el día.",
     occasion: "Cumpleaños",
+    image:
+      "https://images.pexels.com/photos/11774827/pexels-photo-11774827.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     slug: "arreglo-plaza",
     name: "Arreglo Plaza",
     latin: "Dahlia pinnata",
-    price: "$12.900",
+    price: "$12.90",
     description:
       "Dalias de pétalo denso combinadas con follaje de estación, armadas en base de cerámica. Pensado para mesas y living.",
     occasion: "Aniversario",
+    image:
+      "https://images.pexels.com/photos/701752/pexels-photo-701752.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     slug: "ramo-bruma",
     name: "Ramo Bruma",
     latin: "Paeonia lactiflora",
-    price: "$15.200",
+    price: "$15.20",
     description:
       "Peonías en tonos empolvados, el ramo más pedido de la temporada. Disponibilidad limitada por origen del cultivo.",
     occasion: "Cumpleaños",
+    image:
+      "https://images.pexels.com/photos/36399726/pexels-photo-36399726/free-photo-of-stunning-pink-peony-bouquet-in-black-wrap.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     slug: "ramo-jardin",
     name: "Ramo Jardín",
     latin: "Rosa hybrid",
-    price: "$10.400",
+    price: "$10.40",
     description:
       "Rosas de jardín de tallo largo, sueltas y sin armado rígido, como recién cortadas. Ideal para regalo.",
     occasion: "Aniversario",
+    image:
+      "https://images.pexels.com/photos/30085518/pexels-photo-30085518/free-photo-of-beautiful-bouquet-of-fresh-pink-roses.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     slug: "arreglo-ceremonia",
     name: "Arreglo Ceremonia",
     latin: "Hydrangea macrophylla",
-    price: "$18.700",
+    price: "$18.70",
     description:
       "Hortensias en volumen sobre base amplia, pensadas para eventos y ceremonias. Se coordina fecha de entrega.",
     occasion: "Condolencias",
+    image:
+      "https://images.pexels.com/photos/13982553/pexels-photo-13982553.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
 ];
 

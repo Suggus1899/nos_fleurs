@@ -20,8 +20,8 @@ Next.js 16 (App Router, Turbopack) + TypeScript + Tailwind CSS v4 + shadcn/ui (R
   - `/` home, `/catalogo` full product grid (grouped by `Occasion`), `/producto/[slug]` product detail (static params from `PRODUCTS`, calls `notFound()` for unknown slugs), `/nosotros`, `/contacto`, `/cuidados`, `/preguntas-frecuentes`, `/envios-y-cambios`, `not-found.tsx` custom 404.
 - `src/components/ui/` — shadcn/ui primitives, generated via `pnpm dlx shadcn@latest add <component>`. Don't hand-edit these beyond what the CLI produces; re-run `add` to update.
 - `src/components/` — bespoke site components (`seal-stamp.tsx`, `specimen-card.tsx`, `site-header.tsx`, `site-footer.tsx`).
-- `src/lib/products.ts` — single source of truth for product data (`PRODUCTS`, `getProductBySlug`, `OCCASIONS`/`Occasion`). No CMS/backend yet — add products here.
-- `src/lib/whatsapp.ts` — `whatsappLink(message)` builds a `wa.me` link. `WHATSAPP_NUMBER` is a placeholder; replace with the real business number.
+- `src/lib/products.ts` — single source of truth for product data (`PRODUCTS`, `getProductBySlug`, `OCCASIONS`/`Occasion`). Each product's `image` is a placeholder photo hotlinked from Pexels (free license, no attribution required) — swap for real product photography when available. No CMS/backend yet — add products here.
+- `src/lib/whatsapp.ts` — `whatsappLink(message)` builds a `wa.me` link; `WHATSAPP_DISPLAY` is the human-readable counterpart shown on `/contacto`. Both derive from the same placeholder `WHATSAPP_NUMBER` (Venezuela format) — replace it in this one file, not per-page.
 - `src/lib/social.ts` — `INSTAGRAM_URL`/`INSTAGRAM_HANDLE`, both placeholders; replace with the real handle. Shared by the footer and the home Instagram gallery section.
 - `src/lib/utils.ts` — `cn()` helper (clsx + tailwind-merge), the shadcn convention for merging class names.
 - Primary nav (header) stays to Catálogo/Nosotros/Contacto; secondary pages (Cuidados, Preguntas frecuentes, Envíos y cambios) live under the footer's "Ayuda" column only, to keep the header from getting crowded on mobile.
@@ -29,7 +29,7 @@ Next.js 16 (App Router, Turbopack) + TypeScript + Tailwind CSS v4 + shadcn/ui (R
 
 ## Design system
 
-Nos Fleurs is a flower/bouquet storefront. The visual direction is a **"catálogo de herbario"** (herbarium catalog) concept — bouquets presented as sealed specimens rather than a typical pastel florist site. Full rationale lives in conversation history; the tokens are the source of truth going forward. Note: visible "N.° XXX" catalog numbering on product images/cards was deliberately removed (felt cluttered/duplicated) — don't reintroduce it without checking first; the `not-found.tsx` "N.° 404" is a distinct joke on the real HTTP status code, not part of that convention.
+Nos Fleurs is a flower/bouquet storefront serving Maracay, Aragua (Venezuela); prices are in USD (`$8.50`, decimal — not thousands-separated like ARS). The visual direction is a **"catálogo de herbario"** (herbarium catalog) concept — bouquets presented as sealed specimens rather than a typical pastel florist site. Full rationale lives in conversation history; the tokens are the source of truth going forward. Note: visible "N.° XXX" catalog numbering on product images/cards was deliberately removed (felt cluttered/duplicated) — don't reintroduce it without checking first; the `not-found.tsx` "N.° 404" is a distinct joke on the real HTTP status code, not part of that convention.
 
 - Color and font tokens are defined as CSS custom properties in `src/app/globals.css` (`:root`), then re-exposed to Tailwind via the `@theme inline` block. Custom tokens beyond the shadcn defaults: `--moss`, `--bloom` (primary/CTA), `--brass` (accent), matching Tailwind utilities `text-moss`, `bg-primary`, `text-brass`, etc.
 - Three font roles, loaded in `layout.tsx` via `next/font/google` and mapped to `--font-heading` (Fraunces, italic display), `--font-sans` (Inter, body), `--font-mono` (IBM Plex Mono, catalog numbers/prices).
@@ -38,3 +38,7 @@ Nos Fleurs is a flower/bouquet storefront. The visual direction is a **"catálog
 - `SealStamp` (`src/components/seal-stamp.tsx`) is the signature recurring motif — a circular brass stamp SVG reused across hero and product cards. Reach for it instead of inventing a new decorative element.
 
 When adding new UI, prefer shadcn/ui components (`pnpm dlx shadcn@latest add <name>`) over hand-rolling — they already read the theme tokens above.
+
+## Images
+
+Product/gallery images use `next/image` pointed at hotlinked Pexels URLs (`images.pexels.com`, allowed via `images.remotePatterns` in `next.config.ts`). If you add images from a new host, add its hostname there too.

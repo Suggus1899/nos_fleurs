@@ -1,9 +1,15 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { SealStamp } from "@/components/seal-stamp";
 import { SpecimenCard } from "@/components/specimen-card";
 import { PRODUCTS } from "@/lib/products";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
+
+const GALLERY_IMAGES = [
+  ...PRODUCTS.map((product) => product.image),
+  "https://images.pexels.com/photos/38392600/pexels-photo-38392600/free-photo-of-colorful-flower-display-at-florist-shop.jpeg?auto=compress&cs=tinysrgb&w=600",
+];
 
 export default function Home() {
   const featured = PRODUCTS.slice(0, 3);
@@ -66,14 +72,22 @@ export default function Home() {
           </a>
         </div>
         <div className="mt-8 grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {Array.from({ length: 6 }).map((_, i) => (
+          {GALLERY_IMAGES.map((src, i) => (
             <a
-              key={i}
+              key={src + i}
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="aspect-square border border-border bg-secondary transition-colors hover:border-moss/60"
-            />
+              className="relative block aspect-square overflow-hidden border border-border bg-secondary transition-colors hover:border-moss/60"
+            >
+              <Image
+                src={src}
+                alt=""
+                fill
+                sizes="(min-width: 640px) 16vw, 33vw"
+                className="object-cover"
+              />
+            </a>
           ))}
         </div>
       </section>

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { whatsappLink } from "@/lib/whatsapp";
+import { whatsappLink, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Contacto — Nos Fleurs",
 };
 
 const DETAILS = [
-  { label: "WhatsApp", value: "+54 9 11 0000-0000" },
-  { label: "Zona de entrega", value: "CABA y alrededores" },
+  { label: "WhatsApp", value: WHATSAPP_DISPLAY },
+  { label: "Zona de entrega", value: "Maracay y alrededores, edo. Aragua" },
   { label: "Horario", value: "Lun. a sáb. de 9 a 19 h" },
 ];
 
