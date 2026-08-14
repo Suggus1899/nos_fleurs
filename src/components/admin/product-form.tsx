@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +17,11 @@ export function ProductForm({
   error?: string;
 }) {
   return (
-    <form action={action} className="mt-8 max-w-lg space-y-5">
+    <form
+      action={action}
+      encType="multipart/form-data"
+      className="mt-8 max-w-lg space-y-5"
+    >
       <div className="space-y-1.5">
         <Label htmlFor="name">Nombre</Label>
         <Input id="name" name="name" defaultValue={product?.name} required />
@@ -57,12 +62,31 @@ export function ProductForm({
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="image">URL de imagen</Label>
-        <Input id="image" name="image" defaultValue={product?.image} required />
+        <Label htmlFor="image">Foto</Label>
+        {product?.image && (
+          <div className="relative aspect-[4/5] w-28 overflow-hidden border border-border bg-secondary">
+            <Image
+              src={product.image}
+              alt=""
+              fill
+              sizes="112px"
+              className="object-cover"
+            />
+          </div>
+        )}
+        <Input
+          id="image"
+          name="image"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          required={!product}
+        />
         <p className={error ? "text-xs text-primary" : "text-xs text-muted-foreground"}>
           {error
-            ? "La URL debe empezar con https://images.pexels.com/"
-            : "Por ahora debe alojarse en images.pexels.com."}
+            ? "Subí una imagen válida: JPG, PNG o WEBP, hasta 5 MB."
+            : product
+              ? "Dejalo vacío para mantener la foto actual. JPG, PNG o WEBP, hasta 5 MB."
+              : "JPG, PNG o WEBP, hasta 5 MB."}
         </p>
       </div>
 

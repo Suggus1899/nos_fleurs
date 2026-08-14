@@ -10,8 +10,7 @@ import {
   type Occasion,
   type Product,
 } from "@/lib/products";
-
-const ALLOWED_IMAGE_HOST = "https://images.pexels.com/";
+import { isValidImageFile, saveUploadedImage } from "@/lib/uploads";
 
 function revalidateCatalog(slug?: string) {
   revalidatePath("/");
@@ -37,16 +36,13 @@ export async function logout() {
   redirect("/admin/login");
 }
 
-function productFromForm(formData: FormData): Omit<Product, "slug" | "image"> & {
-  image: string;
-} {
+function productFromForm(formData: FormData): Omit<Product, "slug" | "image"> {
   return {
     name: String(formData.get("name") ?? "").trim(),
     latin: String(formData.get("latin") ?? "").trim(),
     price: String(formData.get("price") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     occasion: String(formData.get("occasion") ?? "") as Occasion,
-    image: String(formData.get("image") ?? "").trim(),
   };
 }
 
@@ -55,10 +51,12 @@ export async function createProduct(formData: FormData) {
 
   const products = getProducts();
   const fields = productFromForm(formData);
+  const file = formData.get("image");
 
-  if (!fields.image.startsWith(ALLOWED_IMAGE_HOST)) {
+  if (!isValidImageFile(file)) {
     redirect("/admin/productos/nuevo?error=image");
   }
+  const image = await saveUploadedImage(file);
 
   let slug = slugify(fields.name);
   let suffix = 2;
@@ -67,7 +65,7 @@ export async function createProduct(formData: FormData) {
     suffix += 1;
   }
 
-  products.push({ slug, ...fields });
+  products.push({ slug, ...fields, image });
   saveProducts(products);
   revalidateCatalog(slug);
   redirect("/admin");
@@ -81,11 +79,17 @@ export async function updateProduct(slug: string, formData: FormData) {
   if (index === -1) redirect("/admin");
 
   const fields = productFromForm(formData);
-  if (!fields.image.startsWith(ALLOWED_IMAGE_HOST)) {
-    redirect(`/admin/productos/${slug}?error=image`);
+  const file = formData.get("image");
+
+  let image = products[index].image;
+  if (file instanceof File && file.size > 0) {
+    if (!isValidImageFile(file)) {
+      redirect(`/admin/productos/${slug}?error=image`);
+    }
+    image = await saveUploadedImage(file);
   }
 
-  products[index] = { ...products[index], ...fields };
+  products[index] = { ...products[index], ...fields, image };
   saveProducts(products);
   revalidateCatalog(slug);
   redirect("/admin");
