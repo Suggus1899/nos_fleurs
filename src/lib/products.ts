@@ -1,9 +1,13 @@
+export const OCCASIONS = ["Cumpleaños", "Aniversario", "Condolencias"] as const;
+export type Occasion = (typeof OCCASIONS)[number];
+
 export type Product = {
   slug: string;
   name: string;
   latin: string;
   price: string;
   description: string;
+  occasion: Occasion;
 };
 
 export const PRODUCTS: Product[] = [
@@ -14,6 +18,7 @@ export const PRODUCTS: Product[] = [
     price: "$8.500",
     description:
       "Ranúnculos en degradé de coral a marfil, cortados al amanecer y envueltos en papel kraft. Un ramo pequeño para empezar el día.",
+    occasion: "Cumpleaños",
   },
   {
     slug: "arreglo-plaza",
@@ -22,6 +27,7 @@ export const PRODUCTS: Product[] = [
     price: "$12.900",
     description:
       "Dalias de pétalo denso combinadas con follaje de estación, armadas en base de cerámica. Pensado para mesas y living.",
+    occasion: "Aniversario",
   },
   {
     slug: "ramo-bruma",
@@ -30,6 +36,7 @@ export const PRODUCTS: Product[] = [
     price: "$15.200",
     description:
       "Peonías en tonos empolvados, el ramo más pedido de la temporada. Disponibilidad limitada por origen del cultivo.",
+    occasion: "Cumpleaños",
   },
   {
     slug: "ramo-jardin",
@@ -38,6 +45,7 @@ export const PRODUCTS: Product[] = [
     price: "$10.400",
     description:
       "Rosas de jardín de tallo largo, sueltas y sin armado rígido, como recién cortadas. Ideal para regalo.",
+    occasion: "Aniversario",
   },
   {
     slug: "arreglo-ceremonia",
@@ -46,6 +54,7 @@ export const PRODUCTS: Product[] = [
     price: "$18.700",
     description:
       "Hortensias en volumen sobre base amplia, pensadas para eventos y ceremonias. Se coordina fecha de entrega.",
+    occasion: "Condolencias",
   },
 ];
 

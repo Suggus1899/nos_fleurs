@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { whatsappLink } from "@/lib/whatsapp";
+import { INSTAGRAM_URL } from "@/lib/social";
 
 const EXPLORE = [
   { href: "/catalogo", label: "Catálogo" },
@@ -7,13 +8,16 @@ const EXPLORE = [
   { href: "/contacto", label: "Contacto" },
 ];
 
-// TODO: replace with the real Instagram handle.
-const INSTAGRAM_URL = "https://instagram.com/nosfleurs";
+const HELP = [
+  { href: "/cuidados", label: "Cuidados" },
+  { href: "/preguntas-frecuentes", label: "Preguntas frecuentes" },
+  { href: "/envios-y-cambios", label: "Envíos y cambios" },
+];
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border px-6 py-10 sm:px-12 sm:py-14">
-      <div className="grid gap-8 sm:grid-cols-3">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <span className="font-heading text-lg italic">Nos Fleurs</span>
           <p className="mt-3 max-w-[26ch] text-sm text-foreground/70">
@@ -28,6 +32,24 @@ export function SiteFooter() {
           </span>
           <ul className="mt-3 space-y-2">
             {EXPLORE.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-sm text-foreground/80 hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-moss">
+            Ayuda
+          </span>
+          <ul className="mt-3 space-y-2">
+            {HELP.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

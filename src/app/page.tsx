@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { SealStamp } from "@/components/seal-stamp";
 import { SpecimenCard } from "@/components/specimen-card";
 import { PRODUCTS } from "@/lib/products";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 
 export default function Home() {
   const featured = PRODUCTS.slice(0, 3);
@@ -46,6 +47,33 @@ export default function Home() {
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {featured.map((product) => (
             <SpecimenCard key={product.slug} {...product} />
+          ))}
+        </div>
+      </section>
+
+      <Separator className="bg-border" />
+
+      <section className="py-16 sm:py-24">
+        <div className="flex items-baseline justify-between">
+          <h2 className="font-heading text-2xl italic">Seguinos en Instagram</h2>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs uppercase tracking-wider text-moss hover:text-foreground"
+          >
+            {INSTAGRAM_HANDLE} →
+          </a>
+        </div>
+        <div className="mt-8 grid grid-cols-3 gap-2 sm:grid-cols-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <a
+              key={i}
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aspect-square border border-border bg-secondary transition-colors hover:border-moss/60"
+            />
           ))}
         </div>
       </section>

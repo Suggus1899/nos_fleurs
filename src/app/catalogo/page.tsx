@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SpecimenCard } from "@/components/specimen-card";
-import { PRODUCTS } from "@/lib/products";
+import { OCCASIONS, PRODUCTS } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Catálogo — Nos Fleurs",
@@ -13,10 +13,22 @@ export default function CatalogoPage() {
         Catálogo
       </span>
       <h1 className="mt-2 font-heading text-4xl italic">Todos los especímenes</h1>
-      <div className="mt-10 grid gap-6 sm:grid-cols-3">
-        {PRODUCTS.map((product) => (
-          <SpecimenCard key={product.slug} {...product} />
-        ))}
+
+      <div className="mt-12 space-y-16">
+        {OCCASIONS.map((occasion) => {
+          const products = PRODUCTS.filter((product) => product.occasion === occasion);
+          if (!products.length) return null;
+          return (
+            <section key={occasion}>
+              <h2 className="font-heading text-2xl italic">{occasion}</h2>
+              <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                {products.map((product) => (
+                  <SpecimenCard key={product.slug} {...product} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </main>
   );
