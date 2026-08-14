@@ -23,10 +23,10 @@ export default async function CategoriasPage({
     products.filter((p) => p.occasion === occasion).length;
 
   return (
-    <main className="flex-1 px-6 py-16 sm:px-12 sm:py-24">
+    <main className="flex-1 px-6 py-10 sm:px-12 sm:py-16">
       <Link
         href="/admin"
-        className="font-mono text-xs uppercase tracking-wider text-moss hover:text-foreground"
+        className="font-mono text-xs uppercase tracking-wider text-moss transition-colors hover:text-foreground"
       >
         ← Volver
       </Link>

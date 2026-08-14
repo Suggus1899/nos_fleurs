@@ -40,6 +40,8 @@ Nos Fleurs is a flower/bouquet storefront serving Maracay, Aragua (Venezuela); p
 - `--radius` is intentionally small (`0.25rem`) for the ledger/stamped aesthetic — don't bump it up to shadcn's default without reconsidering the direction.
 - No dark mode is implemented (the `.dark` variant block was removed from `globals.css`); this is a single-theme site by design.
 - `SealStamp` (`src/components/seal-stamp.tsx`) is the signature recurring motif — a circular brass stamp SVG reused across hero and product cards. Reach for it instead of inventing a new decorative element.
+- Every page's `<main>` wrapper uses `px-6 py-10 sm:px-12 sm:py-16` — keep new pages on this pattern rather than the heavier `sm:py-24` this project started with (it left a large dead gap under the sticky header).
+- Hover/interaction polish is intentional, not decorative filler: text links get `transition-colors`, primary CTA buttons get `transition hover:scale-[1.02] active:scale-[0.98]`, card/gallery images get `transition-transform group-hover:scale-105` (or `110` for the smaller Instagram tiles) inside an `overflow-hidden` wrapper. Every transform-based effect is paired with a `motion-reduce:` override that cancels it — keep that pairing when adding more.
 
 When adding new UI, prefer shadcn/ui components (`pnpm dlx shadcn@latest add <name>`) over hand-rolling — they already read the theme tokens above.
 

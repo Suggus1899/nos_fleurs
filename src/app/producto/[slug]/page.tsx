@@ -28,10 +28,10 @@ export default async function ProductoPage({
   if (!product) notFound();
 
   return (
-    <main className="flex-1 px-6 py-16 sm:px-12 sm:py-24">
+    <main className="flex-1 px-6 py-10 sm:px-12 sm:py-16">
       <Link
         href="/catalogo"
-        className="font-mono text-xs uppercase tracking-wider text-moss hover:text-foreground"
+        className="font-mono text-xs uppercase tracking-wider text-moss transition-colors hover:text-foreground"
       >
         ← Catálogo
       </Link>
@@ -62,7 +62,7 @@ export default async function ProductoPage({
             href={whatsappLink(`Hola, me interesa el ${product.name}.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center rounded-sm bg-primary px-6 py-3 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+            className="mt-6 inline-flex items-center rounded-sm bg-primary px-6 py-3 font-mono text-xs uppercase tracking-wider text-primary-foreground transition hover:scale-[1.02] hover:opacity-90 active:scale-[0.98] motion-reduce:transition-none motion-reduce:hover:scale-100"
           >
             Consultar por WhatsApp
           </a>

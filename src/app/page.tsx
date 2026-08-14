@@ -33,18 +33,18 @@ export default function Home() {
           </p>
           <Link
             href="/catalogo"
-            className="mt-8 inline-flex items-center rounded-sm bg-primary px-6 py-3 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+            className="mt-8 inline-flex items-center rounded-sm bg-primary px-6 py-3 font-mono text-xs uppercase tracking-wider text-primary-foreground transition hover:scale-[1.02] hover:opacity-90 active:scale-[0.98] motion-reduce:transition-none motion-reduce:hover:scale-100"
           >
             Ver catálogo
           </Link>
         </div>
-        <div className="relative aspect-[4/3] w-full overflow-hidden border border-border bg-secondary">
+        <div className="group relative aspect-[4/3] w-full overflow-hidden border border-border bg-secondary">
           <Image
             src={HERO_IMAGE}
             alt="Ramo de flores recién armado en el taller"
             fill
             sizes="(min-width: 640px) 50vw, 100vw"
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             priority
           />
           <SealStamp className="absolute -bottom-5 -right-5 h-24 w-24 sm:h-28 sm:w-28" />
@@ -53,12 +53,12 @@ export default function Home() {
 
       <Separator className="bg-border" />
 
-      <section className="py-16 sm:py-24">
+      <section className="py-10 sm:py-16">
         <div className="flex items-baseline justify-between">
           <h2 className="font-heading text-2xl italic">Especímenes de la semana</h2>
           <Link
             href="/catalogo"
-            className="font-mono text-xs uppercase tracking-wider text-moss hover:text-foreground"
+            className="font-mono text-xs uppercase tracking-wider text-moss transition-colors hover:text-foreground"
           >
             Ver catálogo completo →
           </Link>
@@ -72,14 +72,14 @@ export default function Home() {
 
       <Separator className="bg-border" />
 
-      <section className="py-16 sm:py-24">
+      <section className="py-10 sm:py-16">
         <div className="flex items-baseline justify-between">
           <h2 className="font-heading text-2xl italic">Seguinos en Instagram</h2>
           <a
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-xs uppercase tracking-wider text-moss hover:text-foreground"
+            className="font-mono text-xs uppercase tracking-wider text-moss transition-colors hover:text-foreground"
           >
             {INSTAGRAM_HANDLE} →
           </a>
@@ -91,14 +91,14 @@ export default function Home() {
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative block aspect-square overflow-hidden border border-border bg-secondary transition-colors hover:border-moss/60"
+              className="group relative block aspect-square overflow-hidden border border-border bg-secondary transition-colors hover:border-moss/60"
             >
               <Image
                 src={src}
                 alt=""
                 fill
                 sizes="(min-width: 640px) 16vw, 33vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-300 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
             </a>
           ))}

@@ -30,7 +30,7 @@ export function SiteFooter() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-foreground/80 hover:text-foreground"
+                  className="text-sm text-foreground/80 transition-colors hover:text-foreground"
                 >
                   {item.label}
                 </Link>
@@ -48,7 +48,7 @@ export function SiteFooter() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-foreground/80 hover:text-foreground"
+                  className="text-sm text-foreground/80 transition-colors hover:text-foreground"
                 >
                   {item.label}
                 </Link>
@@ -67,7 +67,7 @@ export function SiteFooter() {
                 href={whatsappLink("Hola, quería hacer una consulta.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/80 hover:text-foreground"
+                className="text-foreground/80 transition-colors hover:text-foreground"
               >
                 WhatsApp
               </a>
@@ -77,7 +77,7 @@ export function SiteFooter() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/80 hover:text-foreground"
+                className="text-foreground/80 transition-colors hover:text-foreground"
               >
                 Instagram
               </a>
@@ -91,7 +91,7 @@ export function SiteFooter() {
         <span>Nos Fleurs — Maracay, Aragua</span>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <span>Envíos en Maracay y alrededores</span>
-          <Link href="/admin" className="hover:text-foreground">
+          <Link href="/admin" className="transition-colors hover:text-foreground">
             Admin
           </Link>
         </div>

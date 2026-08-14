@@ -12,7 +12,7 @@ export default function CatalogoPage() {
   const occasions = getOccasions();
 
   return (
-    <main className="flex-1 px-6 py-16 sm:px-12 sm:py-24">
+    <main className="flex-1 px-6 py-10 sm:px-12 sm:py-16">
       <span className="font-mono text-xs uppercase tracking-wider text-moss">
         Catálogo
       </span>

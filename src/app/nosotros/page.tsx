@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function NosotrosPage() {
   return (
-    <main className="flex-1 px-6 py-16 sm:px-12 sm:py-24">
+    <main className="flex-1 px-6 py-10 sm:px-12 sm:py-16">
       <div className="grid gap-10 sm:grid-cols-[1fr_auto] sm:items-start">
         <div>
           <span className="font-mono text-xs uppercase tracking-wider text-moss">

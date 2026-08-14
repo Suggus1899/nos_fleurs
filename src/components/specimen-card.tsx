@@ -7,14 +7,14 @@ import type { Product } from "@/lib/products";
 export function SpecimenCard({ slug, name, latin, price, image }: Product) {
   return (
     <Link href={`/producto/${slug}`} className="group block">
-      <Card className="relative gap-3 rounded-sm border-border bg-card p-5 shadow-none transition-colors group-hover:border-moss/60">
+      <Card className="relative gap-3 rounded-sm border-border bg-card p-5 shadow-none transition-all duration-300 group-hover:-translate-y-1 group-hover:border-moss/60 group-hover:shadow-md motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
         <div className="relative aspect-[4/5] w-full overflow-hidden border border-border bg-secondary">
           <Image
             src={image}
             alt={name}
             fill
             sizes="(min-width: 640px) 33vw, 100vw"
-            className="object-cover"
+            className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
           <SealStamp className="absolute -top-3 -right-3 h-10 w-10" />
         </div>
@@ -24,7 +24,9 @@ export function SpecimenCard({ slug, name, latin, price, image }: Product) {
             {latin}
           </p>
         </div>
-        <p className="font-mono text-sm text-brass">{price}</p>
+        <p className="font-mono text-sm text-brass transition-colors group-hover:text-primary">
+          {price}
+        </p>
       </Card>
     </Link>
   );

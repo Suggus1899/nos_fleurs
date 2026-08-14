@@ -20,7 +20,7 @@ export default function AdminDashboardPage() {
   const products = getProducts();
 
   return (
-    <main className="flex-1 px-6 py-16 sm:px-12 sm:py-24">
+    <main className="flex-1 px-6 py-10 sm:px-12 sm:py-16">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
           <span className="font-mono text-xs uppercase tracking-wider text-moss">
