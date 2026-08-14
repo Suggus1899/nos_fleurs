@@ -11,7 +11,7 @@ import {
   type Product,
 } from "@/lib/products";
 import { getOccasions, saveOccasions } from "@/lib/occasions";
-import { isValidImageFile, saveUploadedImage } from "@/lib/uploads";
+import { deleteUploadedImage, isValidImageFile, saveUploadedImage } from "@/lib/uploads";
 
 function revalidateCatalog(slug?: string) {
   revalidatePath("/");
@@ -88,6 +88,7 @@ export async function updateProduct(slug: string, formData: FormData) {
       redirect(`/admin/productos/${slug}?error=image`);
     }
     image = await saveUploadedImage(file);
+    await deleteUploadedImage(products[index].image);
   }
 
   products[index] = { ...products[index], ...fields, image };
@@ -99,8 +100,10 @@ export async function updateProduct(slug: string, formData: FormData) {
 export async function deleteProduct(slug: string) {
   await requireAdmin();
 
-  const products = getProducts().filter((p) => p.slug !== slug);
-  saveProducts(products);
+  const products = getProducts();
+  const product = products.find((p) => p.slug === slug);
+  saveProducts(products.filter((p) => p.slug !== slug));
+  if (product) await deleteUploadedImage(product.image);
   revalidateCatalog(slug);
   redirect("/admin");
 }
@@ -129,12 +132,17 @@ export async function createOccasion(formData: FormData) {
 export async function deleteOccasion(name: string) {
   await requireAdmin();
 
+  const occasions = getOccasions();
+  if (occasions.length <= 1) {
+    redirect(`/admin/categorias?error=last-one`);
+  }
+
   const inUse = getProducts().some((p) => p.occasion === name);
   if (inUse) {
     redirect(`/admin/categorias?error=in-use`);
   }
 
-  saveOccasions(getOccasions().filter((occasion) => occasion !== name));
+  saveOccasions(occasions.filter((occasion) => occasion !== name));
   revalidateOccasions();
   redirect("/admin/categorias");
 }

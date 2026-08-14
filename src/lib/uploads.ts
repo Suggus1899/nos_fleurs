@@ -28,3 +28,12 @@ export function isValidImageFile(file: unknown): file is File {
     ALLOWED_IMAGE_TYPES.includes(file.type)
   );
 }
+
+// Only removes local uploads (never Pexels/remote URLs) — safe to call with
+// any product.image value. Failures are ignored: a missing file shouldn't
+// block a product delete/update.
+export async function deleteUploadedImage(imagePath: string) {
+  if (!imagePath.startsWith("/uploads/products/")) return;
+  const filename = path.basename(imagePath);
+  await fs.unlink(path.join(UPLOAD_DIR, filename)).catch(() => {});
+}

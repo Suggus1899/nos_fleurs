@@ -64,6 +64,11 @@ export default async function CategoriasPage({
           ocasión primero.
         </p>
       )}
+      {error === "last-one" && (
+        <p className="mt-4 max-w-sm text-sm text-primary">
+          No se puede eliminar: tiene que quedar al menos una categoría.
+        </p>
+      )}
 
       <form action={createOccasion} className="mt-8 max-w-sm space-y-1.5">
         <Label htmlFor="name">Nueva categoría</Label>
