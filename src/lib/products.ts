@@ -12,6 +12,7 @@ export type Product = {
   description: string;
   occasion: Occasion;
   image: string;
+  available?: boolean; // undefined = true; backwards-compat with existing JSON
 };
 
 const DATA_PATH = path.join(process.cwd(), "data", "products.json");

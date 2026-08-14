@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Cuidados — Nos Fleurs",
+  description:
+    "Cuatro pasos sencillos para que tus flores de Nos Fleurs duren entre 6 y 10 días.",
 };
 
 const STEPS = [

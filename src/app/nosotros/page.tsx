@@ -3,6 +3,8 @@ import { SealStamp } from "@/components/seal-stamp";
 
 export const metadata: Metadata = {
   title: "Nosotros — Nos Fleurs",
+  description:
+    "Somos Nos Fleurs, una floristería artesanal en Maracay que trata cada ramo como un espécimen único de herbario.",
 };
 
 export default function NosotrosPage() {

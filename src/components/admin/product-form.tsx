@@ -103,6 +103,19 @@ export function ProductForm({
         />
       </div>
 
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="available"
+          name="available"
+          defaultChecked={product?.available !== false}
+          className="h-4 w-4 accent-primary"
+        />
+        <Label htmlFor="available" className="cursor-pointer">
+          Disponible para pedido
+        </Label>
+      </div>
+
       <Button type="submit" className="rounded-sm">
         {submitLabel}
       </Button>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Envíos y cambios — Nos Fleurs",
+  description:
+    "Entregamos el mismo día en Maracay y alrededores. Conocé las zonas, costos y política de cambios.",
 };
 
 const SECTIONS = [

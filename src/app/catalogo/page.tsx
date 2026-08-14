@@ -5,6 +5,8 @@ import { getOccasions } from "@/lib/occasions";
 
 export const metadata: Metadata = {
   title: "Catálogo — Nos Fleurs",
+  description:
+    "Todos los ramos y arreglos disponibles, organizados por ocasión. Flores de temporada en Maracay, Aragua.",
 };
 
 export default function CatalogoPage() {

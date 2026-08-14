@@ -44,6 +44,7 @@ function productFromForm(formData: FormData): Omit<Product, "slug" | "image"> {
     price: String(formData.get("price") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     occasion: String(formData.get("occasion") ?? "") as Occasion,
+    available: formData.get("available") === "on",
   };
 }
 

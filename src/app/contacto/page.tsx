@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { whatsappLink, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
+import { ContactoForm } from "@/components/contacto-form";
+import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Contacto — Nos Fleurs",
+  description:
+    "Escribinos por WhatsApp para consultas, pedidos o coordinar una entrega en Maracay, Aragua.",
 };
 
 const DETAILS = [
@@ -30,14 +33,7 @@ export default function ContactoPage() {
         ))}
       </dl>
 
-      <a
-        href={whatsappLink("Hola, quería hacer una consulta.")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-8 inline-flex items-center rounded-sm bg-primary px-6 py-3 font-mono text-xs uppercase tracking-wider text-primary-foreground transition hover:scale-[1.02] hover:opacity-90 active:scale-[0.98] motion-reduce:transition-none motion-reduce:hover:scale-100"
-      >
-        Consultar por WhatsApp
-      </a>
+      <ContactoForm />
     </main>
   );
 }

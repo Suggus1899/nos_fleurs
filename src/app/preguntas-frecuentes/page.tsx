@@ -3,6 +3,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Preguntas frecuentes — Nos Fleurs",
+  description:
+    "Cómo hacer un pedido, zonas de entrega, personalización y política de cambios en Nos Fleurs.",
 };
 
 const FAQS = [
