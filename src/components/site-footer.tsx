@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { whatsappLink } from "@/lib/whatsapp";
 import { INSTAGRAM_URL } from "@/lib/social";
-
-const EXPLORE = [
-  { href: "/catalogo", label: "Catálogo" },
-  { href: "/nosotros", label: "Nosotros" },
-  { href: "/contacto", label: "Contacto" },
-];
+import { NAV_LINKS } from "@/lib/nav";
 
 const HELP = [
   { href: "/cuidados", label: "Cuidados" },
@@ -31,7 +26,7 @@ export function SiteFooter() {
             Explorar
           </span>
           <ul className="mt-3 space-y-2">
-            {EXPLORE.map((item) => (
+            {NAV_LINKS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
@@ -94,7 +89,12 @@ export function SiteFooter() {
 
       <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 font-mono text-[11px] uppercase tracking-wider text-moss sm:flex-row sm:items-center sm:justify-between">
         <span>Nos Fleurs — Maracay, Aragua</span>
-        <span>Envíos en Maracay y alrededores</span>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span>Envíos en Maracay y alrededores</span>
+          <Link href="/admin" className="hover:text-foreground">
+            Admin
+          </Link>
+        </div>
       </div>
     </footer>
   );
