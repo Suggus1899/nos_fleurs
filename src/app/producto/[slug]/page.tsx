@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SealStamp } from "@/components/seal-stamp";
-import { getProductBySlug, PRODUCTS } from "@/lib/products";
+import { getProductBySlug, getProducts } from "@/lib/products";
 import { whatsappLink } from "@/lib/whatsapp";
 
 export function generateStaticParams() {
-  return PRODUCTS.map((product) => ({ slug: product.slug }));
+  return getProducts().map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({

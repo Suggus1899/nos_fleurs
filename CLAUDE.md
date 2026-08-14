@@ -12,15 +12,17 @@ pnpm lint     # eslint (flat config, eslint-config-next)
 
 No test runner is set up yet — don't add one speculatively.
 
+Copy `.env.example` to `.env.local` and set `ADMIN_USERNAME`/`ADMIN_PASSWORD` before using `/admin` — see [Admin panel](#admin-panel) below.
+
 ## Stack
 
 Next.js 16 (App Router, Turbopack) + TypeScript + Tailwind CSS v4 + shadcn/ui (Radix base, `radix-nova` style). Package manager is pnpm — see `packageManager` in `package.json`.
 
 - `src/app/` — routes (App Router). `layout.tsx` loads the three theme fonts, sets `<html lang="es">`, and mounts `SiteHeader`/`SiteFooter` globally — individual pages should not render their own header/footer.
-  - `/` home, `/catalogo` full product grid (grouped by `Occasion`), `/producto/[slug]` product detail (static params from `PRODUCTS`, calls `notFound()` for unknown slugs), `/nosotros`, `/contacto`, `/cuidados`, `/preguntas-frecuentes`, `/envios-y-cambios`, `not-found.tsx` custom 404.
+  - `/` home, `/catalogo` full product grid (grouped by `Occasion`), `/producto/[slug]` product detail (static params from `getProducts()`, calls `notFound()` for unknown slugs), `/nosotros`, `/contacto`, `/cuidados`, `/preguntas-frecuentes`, `/envios-y-cambios`, `not-found.tsx` custom 404, `/admin/*` (see below).
 - `src/components/ui/` — shadcn/ui primitives, generated via `pnpm dlx shadcn@latest add <component>`. Don't hand-edit these beyond what the CLI produces; re-run `add` to update.
-- `src/components/` — bespoke site components (`seal-stamp.tsx`, `specimen-card.tsx`, `site-header.tsx`, `site-footer.tsx`).
-- `src/lib/products.ts` — single source of truth for product data (`PRODUCTS`, `getProductBySlug`, `OCCASIONS`/`Occasion`). Each product's `image` is a placeholder photo hotlinked from Pexels (free license, no attribution required) — swap for real product photography when available. No CMS/backend yet — add products here.
+- `src/components/` — bespoke site components (`seal-stamp.tsx`, `specimen-card.tsx`, `site-header.tsx`, `site-footer.tsx`); `src/components/admin/product-form.tsx` is shared by the admin create/edit pages.
+- `src/lib/products.ts` — `getProducts()`/`saveProducts()` read and write `data/products.json` (via `node:fs`, server-only), plus `getProductBySlug`, `slugify`, `OCCASIONS`/`Occasion`. This is the only data store — no CMS/DB. Each product's `image` is a placeholder photo hotlinked from Pexels — swap for real photography when available.
 - `src/lib/whatsapp.ts` — `whatsappLink(message)` builds a `wa.me` link; `WHATSAPP_DISPLAY` is the human-readable counterpart shown on `/contacto`. Both derive from the same placeholder `WHATSAPP_NUMBER` (Venezuela format) — replace it in this one file, not per-page.
 - `src/lib/social.ts` — `INSTAGRAM_URL`/`INSTAGRAM_HANDLE`, both placeholders; replace with the real handle. Shared by the footer and the home Instagram gallery section.
 - `src/lib/utils.ts` — `cn()` helper (clsx + tailwind-merge), the shadcn convention for merging class names.
@@ -41,4 +43,15 @@ When adding new UI, prefer shadcn/ui components (`pnpm dlx shadcn@latest add <na
 
 ## Images
 
-Product/gallery images use `next/image` pointed at hotlinked Pexels URLs (`images.pexels.com`, allowed via `images.remotePatterns` in `next.config.ts`). If you add images from a new host, add its hostname there too.
+Product/gallery images use `next/image` pointed at hotlinked Pexels URLs (`images.pexels.com`, allowed via `images.remotePatterns` in `next.config.ts`). If you add images from a new host, add its hostname there too. The admin product form rejects image URLs outside `images.pexels.com` server-side (in `src/app/admin/actions.ts`) — without that check, a bad URL would 500 the public product/catalog pages at render time.
+
+## Admin panel
+
+`/admin` lets a single hardcoded admin edit the catalog (create/edit/delete products, all fields including `image`). Credentials come from `ADMIN_USERNAME`/`ADMIN_PASSWORD` env vars — set in `.env.local` (gitignored, never commit real values); `.env.example` documents the two required vars. There is no hardcoded fallback in code on purpose, so the real password never ends up in the (public) git history.
+
+- `src/proxy.ts` — Next 16's replacement for `middleware.ts` (must live at `src/proxy.ts`, not project root, since this project uses `src/`). Redirects unauthenticated requests under `/admin/*` to `/admin/login`, and redirects an authenticated visitor away from `/admin/login`.
+- `src/lib/auth-constants.ts` — cookie name/value shared between `proxy.ts` (Edge runtime, no `next/headers`) and `src/lib/auth.ts` (Node runtime, uses `next/headers` `cookies()`).
+- `src/lib/auth.ts` — `checkCredentials`, `createSession`/`destroySession` (sets/clears the session cookie), `isAuthenticated`, `requireAdmin` (redirects to login if not authenticated — called at the top of every mutating Server Action in `src/app/admin/actions.ts` as defense in depth beyond the proxy).
+- `src/app/admin/actions.ts` — all mutations (`login`, `logout`, `createProduct`, `updateProduct`, `deleteProduct`). Every mutation calls `revalidatePath` for `/`, `/catalogo`, `/admin`, and the affected `/producto/[slug]` — miss one of these and that page will keep serving stale cached data after an edit.
+
+ponytail: auth is a single shared session cookie (no per-user sessions, no rate limiting) and product storage is a flat JSON file written via `fs`. Both are fine for local/dev use by one admin, but won't survive a read-only or ephemeral filesystem (e.g. Vercel) and aren't meant to scale past one admin — move to a real database (Postgres, per this workspace's stack preferences) and a proper auth provider before that matters.

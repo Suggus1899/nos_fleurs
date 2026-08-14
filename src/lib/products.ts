@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+
 export const OCCASIONS = ["Cumpleaños", "Aniversario", "Condolencias"] as const;
 export type Occasion = (typeof OCCASIONS)[number];
 
@@ -11,64 +14,31 @@ export type Product = {
   image: string;
 };
 
-export const PRODUCTS: Product[] = [
-  {
-    slug: "ramo-amanecer",
-    name: "Ramo Amanecer",
-    latin: "Ranunculus asiaticus",
-    price: "$8.50",
-    description:
-      "Ranúnculos en degradé de coral a marfil, cortados al amanecer y envueltos en papel kraft. Un ramo pequeño para empezar el día.",
-    occasion: "Cumpleaños",
-    image:
-      "https://images.pexels.com/photos/11774827/pexels-photo-11774827.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    slug: "arreglo-plaza",
-    name: "Arreglo Plaza",
-    latin: "Dahlia pinnata",
-    price: "$12.90",
-    description:
-      "Dalias de pétalo denso combinadas con follaje de estación, armadas en base de cerámica. Pensado para mesas y living.",
-    occasion: "Aniversario",
-    image:
-      "https://images.pexels.com/photos/701752/pexels-photo-701752.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    slug: "ramo-bruma",
-    name: "Ramo Bruma",
-    latin: "Paeonia lactiflora",
-    price: "$15.20",
-    description:
-      "Peonías en tonos empolvados, el ramo más pedido de la temporada. Disponibilidad limitada por origen del cultivo.",
-    occasion: "Cumpleaños",
-    image:
-      "https://images.pexels.com/photos/36399726/pexels-photo-36399726/free-photo-of-stunning-pink-peony-bouquet-in-black-wrap.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    slug: "ramo-jardin",
-    name: "Ramo Jardín",
-    latin: "Rosa hybrid",
-    price: "$10.40",
-    description:
-      "Rosas de jardín de tallo largo, sueltas y sin armado rígido, como recién cortadas. Ideal para regalo.",
-    occasion: "Aniversario",
-    image:
-      "https://images.pexels.com/photos/30085518/pexels-photo-30085518/free-photo-of-beautiful-bouquet-of-fresh-pink-roses.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    slug: "arreglo-ceremonia",
-    name: "Arreglo Ceremonia",
-    latin: "Hydrangea macrophylla",
-    price: "$18.70",
-    description:
-      "Hortensias en volumen sobre base amplia, pensadas para eventos y ceremonias. Se coordina fecha de entrega.",
-    occasion: "Condolencias",
-    image:
-      "https://images.pexels.com/photos/13982553/pexels-photo-13982553.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-];
+const DATA_PATH = path.join(process.cwd(), "data", "products.json");
+
+export function getProducts(): Product[] {
+  return JSON.parse(fs.readFileSync(DATA_PATH, "utf-8"));
+}
+
+// ponytail: writes a flat JSON file, fine for local/dev editing. Swap for a
+// real database (Postgres) before deploying somewhere with a read-only or
+// ephemeral filesystem (e.g. Vercel).
+export function saveProducts(products: Product[]) {
+  fs.writeFileSync(DATA_PATH, JSON.stringify(products, null, 2) + "\n");
+}
 
 export function getProductBySlug(slug: string) {
-  return PRODUCTS.find((product) => product.slug === slug);
+  return getProducts().find((product) => product.slug === slug);
+}
+
+const COMBINING_MARKS = new RegExp("[\\u0300-\\u036f]", "g");
+
+export function slugify(name: string) {
+  return name
+    .normalize("NFD")
+    .replace(COMBINING_MARKS, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { SpecimenCard } from "@/components/specimen-card";
-import { OCCASIONS, PRODUCTS } from "@/lib/products";
+import { OCCASIONS, getProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Catálogo — Nos Fleurs",
 };
 
 export default function CatalogoPage() {
+  const allProducts = getProducts();
+
   return (
     <main className="flex-1 px-6 py-16 sm:px-12 sm:py-24">
       <span className="font-mono text-xs uppercase tracking-wider text-moss">
@@ -16,7 +18,7 @@ export default function CatalogoPage() {
 
       <div className="mt-12 space-y-16">
         {OCCASIONS.map((occasion) => {
-          const products = PRODUCTS.filter((product) => product.occasion === occasion);
+          const products = allProducts.filter((product) => product.occasion === occasion);
           if (!products.length) return null;
           return (
             <section key={occasion}>

@@ -3,20 +3,23 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { SealStamp } from "@/components/seal-stamp";
 import { SpecimenCard } from "@/components/specimen-card";
-import { PRODUCTS } from "@/lib/products";
+import { getProducts } from "@/lib/products";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 
-const GALLERY_IMAGES = [
-  ...PRODUCTS.map((product) => product.image),
-  "https://images.pexels.com/photos/38392600/pexels-photo-38392600/free-photo-of-colorful-flower-display-at-florist-shop.jpeg?auto=compress&cs=tinysrgb&w=600",
-];
+const HERO_IMAGE =
+  "https://images.pexels.com/photos/37309568/pexels-photo-37309568/free-photo-of-elegant-pink-flower-bouquet-in-florist-s-workshop.jpeg?auto=compress&cs=tinysrgb&w=1000";
 
 export default function Home() {
-  const featured = PRODUCTS.slice(0, 3);
+  const products = getProducts();
+  const featured = products.slice(0, 3);
+  const galleryImages = [
+    ...products.map((product) => product.image),
+    "https://images.pexels.com/photos/38392600/pexels-photo-38392600/free-photo-of-colorful-flower-display-at-florist-shop.jpeg?auto=compress&cs=tinysrgb&w=600",
+  ];
 
   return (
     <main className="flex-1 px-6 sm:px-12">
-      <section className="grid gap-10 py-16 sm:grid-cols-[1fr_auto] sm:items-end sm:py-24">
+      <section className="grid items-center gap-10 py-16 sm:grid-cols-2 sm:py-24">
         <div>
           <span className="font-mono text-xs uppercase tracking-wider text-moss">
             Catálogo de temporada
@@ -35,7 +38,17 @@ export default function Home() {
             Ver catálogo
           </Link>
         </div>
-        <SealStamp className="hidden h-32 w-32 shrink-0 sm:block" />
+        <div className="relative aspect-[4/3] w-full overflow-hidden border border-border bg-secondary">
+          <Image
+            src={HERO_IMAGE}
+            alt="Ramo de flores recién armado en el taller"
+            fill
+            sizes="(min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+            priority
+          />
+          <SealStamp className="absolute -bottom-5 -right-5 h-24 w-24 sm:h-28 sm:w-28" />
+        </div>
       </section>
 
       <Separator className="bg-border" />
@@ -72,7 +85,7 @@ export default function Home() {
           </a>
         </div>
         <div className="mt-8 grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {GALLERY_IMAGES.map((src, i) => (
+          {galleryImages.map((src, i) => (
             <a
               key={src + i}
               href={INSTAGRAM_URL}
