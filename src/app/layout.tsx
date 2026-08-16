@@ -24,7 +24,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "Nos Fleurs — Flores de temporada en Maracay",
   description:
     "Ramos y arreglos florales hechos a mano, entregados el mismo día en Maracay, estado Aragua. Catálogo de temporada en USD.",
